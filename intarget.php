@@ -1,33 +1,21 @@
 <?php
 /**
- * @version		1.0.0
- * @Project		InTarget
- * @author 		intarget.ru
+ * @version        1.0.0
+ * @Project        InTarget
+ * @author        intarget.ru
  * @package
- * @copyright	Copyright (C) 2015 intarget.ru. All rights reserved.
- * @license 	GNU/GPL: http://www.gnu.org/copyleft/gpl.html
+ * @copyright    Copyright (C) 2015 intarget.ru. All rights reserved.
+ * @license    GNU/GPL: http://www.gnu.org/copyleft/gpl.html
  */
 
 // Check to ensure this file is included in Joomla!
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.plugin.plugin');
-/*
-: email: String, key: String, url: String
-[12:46:36] Dmitry Modin: /api/registration.json
-domain: dev.intarget.ru
-
-content type:apliation"json
-accepted application;json
-
-*/
-
-
 
 class plgSystemIntarget extends JPlugin
 {
 
-    private $debug = false;
     public $app_key = '';
     public $email = '';
     public $url = '';
@@ -54,6 +42,7 @@ jQuery(document).ready(function(){
                     w[c].push(function(inTarget) {
                         inTarget.event('cat-view');
                     });
+                    console.log('cat-view');
                 })(window, 'inTargetCallbacks');
             }
         //////item-view
@@ -64,35 +53,37 @@ jQuery(document).ready(function(){
 
                 inTarget.event('item-view')
                     });
+                    console.log('item-view')
                 })(window, 'inTargetCallbacks');
             }
         //////add to cart
             jQuery("input.button.hikashop_cart_input_button[name=add]").each(function() {
-                var my_funct = " inTarget.event('add-to-cart');";
+                var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
             jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
             })
         /////del from cart
 
             jQuery(".hikashop_cart_product_quantity_delete").each(function() {
-                var my_funct = " inTarget.event('del-from-cart') ;";
+                var my_funct = " inTarget.event('del-from-cart'); console.log('del-from-cart');";
             jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
             })
          /////order_finish
            if (jQuery('span#hikashop_purchaseorder_end_message').length) {
 
-                                                      (function(w, c) {
+            (function(w, c) {
                 w[c] = w[c] || [];
                 w[c].push(function(inTarget) {
 
                 inTarget.event('success-order')
                     });
+                    console.log('success-order');
                 })(window, 'inTargetCallbacks');
 
 
             }
         ////user_reg
             jQuery("input.button.hikashop_cart_input_button[name=register]").each(function() {
-                var my_funct = "inTarget.event('user-reg');";
+                var my_funct = "inTarget.event('user-reg');console.log('user-reg');";
                 jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
             })
 
@@ -109,6 +100,7 @@ jQuery(document).ready(function(){
                     w[c].push(function(inTarget) {
                         inTarget.event('cat-view');
                     });
+                    console.log('cat-view');
                 })(window, 'inTargetCallbacks');
 
 
@@ -125,6 +117,7 @@ jQuery(document).ready(function(){
 
                 inTarget.event('item-view')
                     });
+                console.log('item-view');
             })(window, 'inTargetCallbacks');
              }
 
@@ -137,7 +130,7 @@ jQuery(document).ready(function(){
 
 
         jQuery("a.btn.btn-success.button_buy").each(function() {
-            var my_funct = " inTarget.event('add-to-cart');";
+            var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
         /*
@@ -145,38 +138,21 @@ jQuery(document).ready(function(){
         нет события add-to-cart
         */
         jQuery('.prod_buttons input.btn.btn-primary.button').each(function() {
-            var my_funct = " inTarget.event('add-to-cart');";
+            var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
 
-
-
-
-        //add to cart from car view
-        ////btn btn-success button_buy
-        //  jQuery('a.btn.btn-success.button_buy').click(function(){  inTarget.event('add-to-cart') });
-
-        //del from cart
-        //<a class="button-img" href="/korzina/delete?number_id=0" onclick="return confirm('Действительно удалить?')" target="_self">
-        //                    <img src="http://joomshopping.aliexpress-skidka.ru/components/com_jshopping/images/remove.png" alt="Удалить" title="Удалить">
-        //                </a>
-        ////jQuery("a[href^='/korzina/delete']")
-        //http://local-joomshop/index.php/shop/cart/delete?number_id=0
-
         jQuery("a[href*='/cart/delete']").each(function() {
-            var my_funct = " inTarget.event('del-from-cart') ;";
+            var my_funct = " inTarget.event('del-from-cart');console.log('del-from-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
 
         jQuery("a[href*='/korzina/delete']").each(function() {
-            var my_funct = " inTarget.event('del-from-cart') ;";
+            var my_funct = " inTarget.event('del-from-cart');console.log('del-from-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
 
         //user reg
-        // location.href='/magazin/user/register';
-        //jQuery('input[onclick*="register"]')
-
 
         if (jQuery( ".alert-message p:contains('Учётная запись для вас была создана')" ).length) {
 
@@ -185,33 +161,22 @@ jQuery(document).ready(function(){
                     w[c].push(function(inTarget) {
                         inTarget.event('user-reg');
                     });
+                    console.log('user-reg');
                 })(window, 'inTargetCallbacks');
             };
-
-
-        /*
-        срабатывало при незаполненных полях
-        jQuery("input[onclick*='register']").each(function() {
-            var my_funct = "inTarget.event('user-reg');";
-        jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-        })
-
-        */
         //order_finish
 
-        //jQuery("input[name='finish_registration']")
-
         jQuery("input[name='finish_registration']").each(function() {
-            var my_funct = " inTarget.event('success-order') ;";
+            var my_funct = " inTarget.event('success-order');console.log('success-order');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
 
     //virtuemart
-          jQuery('input.addtocart-button').click(function(){  inTarget.event('add-to-cart')      });
-          jQuery('.vm2-remove_from_cart').click(function(){ inTarget.event('del-from-cart') });
+          jQuery('input.addtocart-button').click(function(){  inTarget.event('add-to-cart'); console.log('add-to-cart');      });
+          jQuery('.vm2-remove_from_cart').click(function(){ inTarget.event('del-from-cart'); console.log('del-from-cart'); });
 
             jQuery('button#checkoutFormSubmit[name=confirm]').each(function() {
-                var my_funct = "inTarget.event('success-order');";
+                var my_funct = "inTarget.event('success-order'); console.log('success-order');";
             jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
             })
 
@@ -222,6 +187,7 @@ jQuery(document).ready(function(){
                     w[c].push(function(inTarget) {
                         inTarget.event('item-view');
                     });
+                    console.log('item-view');
                 })(window, 'inTargetCallbacks');
             };
 
@@ -232,10 +198,10 @@ jQuery(document).ready(function(){
                     w[c].push(function(inTarget) {
                         inTarget.event('cat-view');
                     });
+                    console.log('cat-view');
                 })(window, 'inTargetCallbacks');
             };
 
-          //if (jQuery('body.view-cart').length) { inTarget.event('cart-view')  };
         //user reg
             jQuery("button[name=save]").each(function() {
                 var my_funct = "inTarget.event('user-reg');";
@@ -248,217 +214,64 @@ jQuery(document).ready(function(){
 
 })
 EOD;
+    public function __construct(& $subject, $config)
+    {
+        parent::__construct($subject, $config);
 
-
-    public $jsCode2_old = <<<EOD
-
-jQuery(document).ready(function(){
-  jQuery('input.addtocart-button').click(function(){
-
-    (function(w, c) {
-        w[c] = w[c] || [];
-        w[c].push(function(inTarget) {
-
-  inTarget.event('add-to-cart')
-        });
-})(window, 'inTargetCallbacks');
-
-
-
-  })
-})
-
-jQuery(document).ready(function(){
-  jQuery('button#checkoutFormSubmit').click(function(){
-    (function(w, c) {
-    w[c] = w[c] || [];
-    w[c].push(function(inTarget) {
-
-  inTarget.event('success-order')
-        });
-})(window, 'inTargetCallbacks');
-
-  })
-})
-
-jQuery(document).ready(function(){
-  if (jQuery('div.category-view').length) {
-    (function(w, c) {
-    w[c] = w[c] || [];
-    w[c].push(function(inTarget) {
-
-    inTarget.event('cat-view')
-        });
-})(window, 'inTargetCallbacks');
-
-  }
-})
-
-jQuery(document).ready(function(){
-  if (jQuery('body.view-cart').length) {
-
-    (function(w, c) {
-    w[c] = w[c] || [];
-    w[c].push(function(inTarget) {
-
-    inTarget.event('cart-view')
-        });
-})(window, 'inTargetCallbacks');
-
-  }
-})
-
-//user reg
-
-
-jQuery(document).ready(function(){
-  jQuery('.vm2-remove_from_cart').click(function(){
-    (function(w, c) {
-    w[c] = w[c] || [];
-    w[c].push(function(inTarget) {
-
-    inTarget.event('del-from-cart')
-        });
-})(window, 'inTargetCallbacks');
-
-  })
-
-//var elements2 = document.getElementsByClassName('vm2-remove_from_cart'),j,len2,el2;
-//for (j = 0, len2 = elements2.length; j < len2; j++) {
-//    el2 = elements2[j];
-//    el2.onclick = function() {inTarget.event('del-from-cart')}    
-//}
-
-})
-EOD;
-
-    public $jsCodeDebug = <<<EOD
-
-
-
-
-
-jQuery(document).ready(function(){
-
-  jQuery('input.addtocart-button').click(function(){alert('added to cart')})
-
-})
-
-jQuery(document).ready(function(){
-  jQuery('button#checkoutFormSubmit').click(function(){alert('success-order')})
-})
-
-jQuery(document).ready(function(){
-  if (jQuery('div.category-view').length) {
-    alert('cat-view')
-  }
-})
-
-jQuery(document).ready(function(){
-  if (jQuery('body.view-cart').length) {
-    alert('cart-view')
-  }
-})
-
-jQuery(document).ready(function(){
-  jQuery('.vm2-remove_from_cart').click(function(){alert('del-from-cart')})
-
-//var elements2 = document.getElementsByClassName('vm2-remove_from_cart'),j,len2,el2;
-//for (j = 0, len2 = elements2.length; j < len2; j++) {
-//    el2 = elements2[j];
-//    el2.onclick = function() {alert('del-from-cart')}    
-//}
-
-})
-EOD;
-
-
-  public function __construct(& $subject, $config)
-  {
-    parent::__construct($subject, $config);
-
-      if(!function_exists('curl_init'))
-      {
-          echo "Intarget plugin problem. Php_curl not installed.
+        if (!function_exists('curl_init')) {
+            echo "Intarget plugin problem. Php_curl not installed.
           Please install curl or disable plugin";
-          exit();
-      }
-
-        $this->isAdmin = JFactory::getApplication()->isAdmin();
-        if ($this->debug) {
-            $this->app_key = 'TW11RrYsczhpluVFFBABruIEmPDq2Z8Z';
-        } else $this->app_key = $this->params->get('app_key', '');
-
-        //$this->projectId = $this->getProjectIdFromFile();
-
-      $this->projectId = $this->getProjectIdFromFile();
-        if (strlen($this->projectId) > 0) {
-            JFactory::getDocument()->addScriptDeclaration('window.intarget_projectId = '.$this->projectId.';');
-            if ($this->debug) {
-                JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCodeDebug);
-            } else JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCode2);
+            exit();
         }
 
-     /* if(!empty($this->app_key) && !$this->isAdmin)
-      {
-          if ($this->debug) {
-              JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCodeDebug);
-          } else JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCode2);
-
-      }*/
-
-
-
+        $this->isAdmin = JFactory::getApplication()->isAdmin();
+        $this->app_key = $this->params->get('app_key', '');
+        $this->email = $this->params->get('email', '');
         $uri = JUri::getInstance();
         $url = $uri->toString(array('host'));
         $this->url = $url;
-        if ($this->params->get('email') != '') {
-            $this->email = $this->params->get('email');
+
+        //check and try to reg
+        if (($this->params->get('email') !== '') && ($this->params->get('app_key') !== '')) {
+            $id = $this->regbyApi();
+            if (isset($id->payload->projectId)) {
+                $this->projectId = $id->payload->projectId;
+            }
+        }
+//        $this->projectId = $this->getProjectIdFromFile();
+        $this->params->set('intarget_id', $this->projectId);
+
+        if (strlen($this->projectId) > 0) {
+            JFactory::getDocument()->addScriptDeclaration($this->getjsCode() . $this->jsCode2);
         }
 
-      //check adn try to reg
-      if (($this->params->get('email') !== '') && ($this->params->get('app_key') !== '') && ($this->projectId == '')){
-          $id = $this->regbyApi();
-          //$id = '';
-          //$this->saveProjectId('41');
-          if (strlen($id) > 0 ) {
-
-              $this->saveProjectIdToFile($id);
-              //echo 'saved';exit();
-              //$this->projectId = $this->getProjectIdFromFile();
-          }
-      }
-      $this->projectId = $this->getProjectIdFromFile();
-
         //проверка на успешно авторизированный проект
-      if ($this->isAdmin) {
-          if  (strlen($this->projectId) > 0) {
-              JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = true');
-          } elseif (file_get_contents(JPATH_PLUGINS.'/system/intarget/error.txt')) {
-              JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = false;window.intarget_reg_error = "'.file_get_contents(JPATH_PLUGINS.'/system/intarget/error.txt'). '"');
-              //file_put_contents(JPATH_PLUGINS.'/content/intarget/error.txt'
-          }
-      }
+        if ($this->isAdmin) {
+            if (strlen($this->projectId) > 0) {
+                JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = true');
+                JFactory::getDocument()->addScriptDeclaration('window.intarget_id = ' . $this->projectId);
 
-
+            } else {
+                JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = false;window.intarget_reg_error = "' . $id->code . '"');
+            }
+        }
 
 
     }
 
-
-
-     /** Main script
+    /** Main script
      * @throws Exception
      */
-    public function getjsCode(){
+    public function getjsCode()
+    {
 
-        if ((strlen($this->projectId) > 0) && (!$this->isAdmin) )  {
-            return  '
-            /*INTARGET CODE START */
+        if ((strlen($this->projectId) > 0) && (!$this->isAdmin)) {
+            return '
+            /* INTARGET CODE START */
 
             (function(d, w, c) {
                   w[c] = {
-                    projectId:'.$this->projectId.'
+                    projectId:' . $this->projectId . '
                   };
 
                   var n = d.getElementsByTagName("script")[0],
@@ -466,45 +279,37 @@ EOD;
                   f = function () { n.parentNode.insertBefore(s, n); };
                   s.type = "text/javascript";
                   s.async = true;
-                  s.src = "'.$this->rtDomain.'";
+                  s.src = "' . $this->rtDomain . '";
                   if (w.opera == "[object Opera]") {
                     d.addEventListener("DOMContentLoaded", f, false);
                   } else { f(); }
-
+                    console.log("inTarget script");
                 })(document, window, "inTargetInit");
 
-               /*INTARGET CODE END */
+               /* INTARGET CODE END */
 
-        '.$this->int_scrpt;
+        ' . $this->int_scrpt;
         } else return;
     }
+
     public function onBeforeRender()
     {
-      /*  if(!empty($this->app_key) && !$this->isAdmin)
-        {
-            if ($this->debug) {
-                JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCodeDebug);
-            } else JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCode2);
-
-        }*/
     }
-
 
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
-
     }
 
 
-     public function onContentBeforeDisplay($context, &$product, &$params, $page = 0)
+    public function onContentBeforeDisplay($context, &$product, &$params, $page = 0)
     {
 
-      //JFactory::getDocument()->addScriptDeclaration('alert("'.$context.'")');
-       /* $pos = strpos($context,'com_virtuemart');
-        if ($pos === false) {
-            return;
-        }*/
-        if($context != 'com_virtuemart.productdetails')
+        //JFactory::getDocument()->addScriptDeclaration('alert("'.$context.'")');
+        /* $pos = strpos($context,'com_virtuemart');
+         if ($pos === false) {
+             return;
+         }*/
+        if ($context != 'com_virtuemart.productdetails')
             return;
 
         //$category_id = JFactory::getApplication()->input->getInt('virtuemart_category_id', 0);
@@ -512,52 +317,35 @@ EOD;
         //{
         //    $category_id = $product->virtuemart_category_id;
         //}
-       /* if(!empty($this->app_key) && !$this->isAdmin)
-        {
-            if ($this->debug) {
-                JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCodeDebug);
-            } else JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCode2);
+        /* if(!empty($this->app_key) && !$this->isAdmin)
+         {
+             if ($this->debug) {
+                 JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCodeDebug);
+             } else JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCode2);
 
-        }*/
+         }*/
         $this->productView();
     }
 
-     private function productView()
+    private function productView()
     {
-        if(!empty($this->app_key))
-        {
-            //$uri = JUri::getInstance()->toString();
-          if ($this->debug) { $int_scrpt = "
-          
-jQuery(document).ready(function(){
-alert('itemview')
-})
-            
-
-          ";} else  $int_scrpt = "
-
-
-
-jQuery(document).ready(function(){
-
-   (function(w, c) {
-    w[c] = w[c] || [];
-    w[c].push(function(inTarget) {
-
-    inTarget.event('item-view')
-        });
-})(window, 'inTargetCallbacks');
-
-
-})
-
-          ";
+        if (!empty($this->projectId)) {
+            $int_scrpt = "jQuery(document).ready(function(){
+                            (function(w, c) {
+                                w[c] = w[c] || [];
+                                w[c].push(function(inTarget) {
+                                    inTarget.event('item-view')
+                                });
+                                console.log('item-view');
+                            })(window, 'inTargetCallbacks');
+                          })";
             $this->int_scrpt = $int_scrpt;
             JFactory::getDocument()->addScriptDeclaration($int_scrpt);
         }
     }
 
     /** Virtuemart on add to cart
+     *
      * @param $cart
      */
     public function plgVmOnAddToCart($cart)
@@ -565,86 +353,46 @@ jQuery(document).ready(function(){
         $this->virtuemartSubmitCart($cart);
     }
 
-    public function regbyApi(){
-        //$domain = 'dev.intarget.ru'
+    public function regbyApi()
+    {
         $domain = $this->regDomain;
         $email = $this->email; //'wixapp@ya.ru';
         $key = $this->app_key;//'TW11RrYsczhpluVFFBABruIEmPDq2Z8Z';
-        $url = 'http://'.$this->url; //'aliexpress-skidka.ru';
+        $url = 'http://' . $this->url; //'aliexpress-skidka.ru';
 
-        if (($domain == '') OR ($email == '') OR ($key == '') OR ($url == '') ){
+        if (($domain == '') OR ($email == '') OR ($key == '') OR ($url == '')) {
             return;
         }
         //var_dump(array($domain,$email,$key,$url));exit();
         $ch = curl_init();
 
-        //$jsondata ='            "email={$email}&key={$key}&url={$url}"'
         $jsondata = json_encode(array(
             'email' => $email,
             'key' => $key,
             'url' => $url,
             'cms' => 'joomla'));
 
-        //print_r($jsondata);exit();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept: application/json'));
-
-        curl_setopt($ch, CURLOPT_URL, $domain."/api/registration.json");
+        curl_setopt($ch, CURLOPT_URL, $domain . "/api/registration.json");
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$jsondata);
-
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsondata);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $server_output = curl_exec($ch);
+        curl_close($ch);
 
-        $server_output = curl_exec ($ch);
-        file_put_contents(JPATH_PLUGINS.'/system/intarget/log.txt',$server_output,FILE_APPEND);
-        /*
-
-        {"result":"OK","projectId":25}
-        {"status":"error","code":500,"message":"Can't create project","payload":null}
-
-        */
+        file_put_contents(JPATH_PLUGINS . '/system/intarget/log.txt', $server_output, FILE_APPEND);
 
         $json_result = json_decode($server_output);
-        if (isset($json_result->status)) {
-            if (($json_result->status == 'OK') && (isset($json_result->payload))){
-                if (isset($json_result->payload->projectId)) return $json_result->payload->projectId;
-            } elseif ($json_result->status = 'error') {
-                file_put_contents(JPATH_PLUGINS.'/system/intarget/error.txt',$json_result->code);
-            }
-        }
-        curl_close ($ch);
-
-
+        return $json_result;
     }
 
-    public function testCurl(){
-        $strSearch = 'joomla';
-        $url = "http://www.google.com/search?q=".$strSearch."&hl=en&start=0&sa=N";
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_VERBOSE, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible;)");
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        return   $response;
-    }
-    public function saveProjectIdToFile($projectId){
-        file_put_contents(JPATH_PLUGINS.'/system/intarget/project.cfg', $projectId);
-    }
-    public function getProjectIdFromFile(){
-        $projectId = file_get_contents(JPATH_PLUGINS.'/system/intarget/project.cfg');
-        if (strlen($projectId) > 0 ) {
-            return $projectId;
-        } else return;
-    }
-    public function saveProjectId($projectId) {
+    public function saveProjectId($projectId)
+    {
 
         $params = $this->params;
-        $params->set('projectId', $projectId);
+        $params->set('intarget_id', $projectId);
 
-        try
-        {
+        try {
             $db = JFactory::getDbo();
             $query = $db->getQuery(true);
             $query->update($db->quoteName('#__extensions'));
@@ -657,14 +405,35 @@ jQuery(document).ready(function(){
             $db->execute();
             //$db->setQuery($query);
             //$result = $db->loadResult();
+        } catch (RuntimeException $e) {
+            echo $e->getMessage();
+            exit();
         }
-        catch (RuntimeException $e)
-        {
-            echo $e->getMessage(); exit();
-        }
-
-
-
     }
 
+    public function onAfterOrderCreate(&$order, &$send_email)
+    {
+        $input = JFactory::getApplication()->input;
+        $task = $input->getCmd('task', '');
+        $ctrl = $input->getCmd('ctrl', '');
+        $option = $input->getCmd('option', '');
+
+        if ($option != 'com_hikashop' || !($ctrl == 'checkout' && $task == 'step' && !$this->isAdmin)) {
+            return;
+        }
+
+        if (!empty($this->projectId)) {
+            $int_scrpt = "jQuery(document).ready(function(){
+                            (function(w, c) {
+                                w[c] = w[c] || [];
+                                w[c].push(function(inTarget) {
+                                    inTarget.event('success-order')
+                                });
+                                console.log('success-order');
+                            })(window, 'inTargetCallbacks');
+                          })";
+            $this->int_scrpt = $int_scrpt;
+            JFactory::getDocument()->addScriptDeclaration($int_scrpt);
+        }
+    }
 }

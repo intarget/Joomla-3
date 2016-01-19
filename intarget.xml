@@ -1,43 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.0" type="plugin" group="system" method="upgrade">
     <name>inTarget</name>
-    <author>intarget</author>
+    <author>inTarget Team</author>
     <creationDate>08.2015</creationDate>
-    <copyright>(C) 2015 by intarget.ru team (http://intarget.ru)</copyright>
+    <copyright>(C) 2016 by intarget.ru team (https://intarget.ru)</copyright>
     <license>GNU/GPL: http://www.gnu.org/copyleft/gpl.html</license>
     <authorEmail>plugins@intarget.ru</authorEmail>
-    <authorUrl>http://uptolike.com</authorUrl>
+    <authorUrl>https://intarget.ru</authorUrl>
     <version>1.0.0</version>
     <description>
 
-          <![CDATA[
+        <![CDATA[
 <link rel="stylesheet" type="text/css" href="/plugins/system/intarget/style.css">
 <script src="/plugins/system/intarget/main.js"> </script>
 <div id="before_install" style="display:none;">
 Плагин inTarget успешно установлен!
 
-Для начала работы плагина необходимо ввести ключ API, полученный в личном кабинете на сайте <a href="http://intarget.ru">inTarget.ru</a>
+Для начала работы плагина необходимо ввести Email и Ключ API, полученный в личном кабинете на сайте <a href="http://intarget.ru">inTarget.ru</a>
 </div>
-<div class="wrap" id="after_install" style="display:none;">
-
-<p><b>inTarget</b> - сервис повышения продаж и аналитика посетителей сайта.</p>
-<p>Оцените принципиально новый подход к просмотру статистики. Общайтесь со своей аудиторией, продавайте лучше, зарабатывайте больше. И все это бесплатно!</p>
-<label for="api_key"> Ключ API:</label>
-<input name="api_key"> 
-<button> Проверить ключ </button>
-    <h2 class="placeholder">&nbsp;</h2>
-    
-
-    </div>
-</div>
-<script type="text/javascript">
-    window.onload = function ()
-    {
-        if (document.location.search == "?option=com_installer&view=install") {
-            document.getElementById('before_install').style.display = 'block'
-        } else document.getElementById('after_install').style.display = 'block'
-    }
-</script>
         ]]>
     </description>
     <languages folder="language">
@@ -50,41 +30,36 @@
         <filename plugin="intarget">intarget.php</filename>
         <filename>index.html</filename>
         <filename>style.css</filename>
-        <filename>project.cfg</filename>
         <filename>ok.png</filename>
         <filename>main.js</filename>
-        <filename>error.txt</filename>
         <filename>log.txt</filename>
     </files>
     <config>
         <fields name="params">
+            <fieldset name="basic">
 
-            <fieldset name="basic" >
-
-                               <field
-                        name="app_key"
-                        type="text"
-                        default=""
-                        label="PLG_INTARGET_APP_KEY"
-                        description="PLG_INTARGET_APP_KEY_DESC"/>
                 <field
                         name="email"
                         type="text"
                         default=""
                         label="PLG_INTARGET_EMAIL"
                         description="PLG_INTARGET_EMAIL_DESC"/>
-                <!--<field
-                        name="projectId"
+                <field
+                        name="app_key"
                         type="text"
                         default=""
-                        label="PLG_INTARGET_PROJECT_ID"
-                        description="PLG_INTARGET_PROJECT_ID_DESC"/>-->
+                        label="PLG_INTARGET_APP_KEY"
+                        description="PLG_INTARGET_APP_KEY_DESC"/>
+                <field
+                        name="intarget_id"
+                        type="hidden"
+                        default=""/>
             </fieldset>
-
         </fields>
     </config>
-<updateservers>
-    <server type="extension" priority="1" name="inTarget">
-        http://intarget.ru/
-    </server></updateservers>
+    <updateservers>
+        <server type="extension" priority="1" name="inTarget">
+            http://intarget.ru/
+        </server>
+    </updateservers>
 </extension>
