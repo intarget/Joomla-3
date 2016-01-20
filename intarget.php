@@ -1,11 +1,11 @@
 <?php
 /**
- * @version        1.0.0
- * @Project        InTarget
- * @author        intarget.ru
+ * @version     1.0.0
+ * @Project     inTarget
+ * @author      intarget.ru
  * @package
- * @copyright    Copyright (C) 2015 intarget.ru. All rights reserved.
- * @license    GNU/GPL: http://www.gnu.org/copyleft/gpl.html
+ * @copyright   Copyright (C) 2015 intarget.ru. All rights reserved.
+ * @license     GNU/GPL: http://www.gnu.org/copyleft/gpl.html
  */
 
 // Check to ensure this file is included in Joomla!
@@ -20,6 +20,7 @@ class plgSystemIntarget extends JPlugin
     public $email = '';
     public $url = '';
     public $projectId = '';
+    public $error = '';
     public $regDomain = 'http://intarget-dev.lembrd.com';
     //public $regDomain = 'http://intarget.ru';
     public $rtDomain = "//rt.intarget-dev.lembrd.com/loader.js";
@@ -91,7 +92,6 @@ jQuery(document).ready(function(){
 
     //joomshopping
         //////view-cat
-        //div class="jshop_list_category"
 
         if (jQuery('div.jshop_list_category').length) {
 
@@ -109,7 +109,7 @@ jQuery(document).ready(function(){
         }
 
         //item-view
-        /////div class=jshop productfull
+
         if (jQuery('div.jshop.productfull').length) {
             (function(w, c) {
                 w[c] = w[c] || [];
@@ -123,20 +123,13 @@ jQuery(document).ready(function(){
 
 
         //add to cart
-        ////onclick="jQuery('#to').val('cart');"
-        //<input type="submit" class="btn btn-primary button" value="В корзину" onclick="jQuery('#to').val('cart');">
-        //<a class="btn btn-success button_buy" href="/korzina/add?category_id=4&amp;product_id=6" target="_self">Купить</a>
         //add to cart at view item page
-
 
         jQuery("a.btn.btn-success.button_buy").each(function() {
             var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
-        /*
-        2)при нажатии на кнопку В корзину на странице http://joomla03.lembrd.com/index.php/magazin/category1/product01 ,
-        нет события add-to-cart
-        */
+
         jQuery('.prod_buttons input.btn.btn-primary.button').each(function() {
             var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
@@ -214,6 +207,7 @@ jQuery(document).ready(function(){
 
 })
 EOD;
+
     public function __construct(& $subject, $config)
     {
         parent::__construct($subject, $config);
@@ -227,13 +221,12 @@ EOD;
         $this->isAdmin = JFactory::getApplication()->isAdmin();
         $this->app_key = $this->params->get('app_key', '');
         $this->email = $this->params->get('email', '');
-        $uri = JUri::getInstance();
-        $url = $uri->toString(array('host'));
-        $this->url = $url;
+        $this->url = $this->currentUrl();
 
         //check and try to reg
         if (($this->params->get('email') !== '') && ($this->params->get('app_key') !== '')) {
             $id = $this->regbyApi();
+            var_dump($id);
             if (isset($id->payload->projectId)) {
                 $this->projectId = $id->payload->projectId;
             }
@@ -252,11 +245,32 @@ EOD;
                 JFactory::getDocument()->addScriptDeclaration('window.intarget_id = ' . $this->projectId);
 
             } else {
-                JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = false;window.intarget_reg_error = "' . $id->code . '"');
+                if (isset($id->code))
+                    JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = false;window.intarget_reg_error = "' . $id->code . '"');
             }
         }
 
 
+    }
+
+    /**
+     * Возвращает url
+     */
+    public function currentUrl()
+    {
+        $url = 'http';
+        if (isset($_SERVER['HTTPS'])) {
+            if ($_SERVER['HTTPS'] == 'on') {
+                $url .= 's';
+            }
+        }
+        $url .= '://';
+        if ($_SERVER['SERVER_PORT'] != '80') {
+            $url .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'];
+        } else {
+            $url .= $_SERVER['SERVER_NAME'];
+        }
+        return $url;
     }
 
     /** Main script
@@ -303,27 +317,9 @@ EOD;
 
     public function onContentBeforeDisplay($context, &$product, &$params, $page = 0)
     {
-
-        //JFactory::getDocument()->addScriptDeclaration('alert("'.$context.'")');
-        /* $pos = strpos($context,'com_virtuemart');
-         if ($pos === false) {
-             return;
-         }*/
         if ($context != 'com_virtuemart.productdetails')
             return;
 
-        //$category_id = JFactory::getApplication()->input->getInt('virtuemart_category_id', 0);
-        //if($category_id == 0)
-        //{
-        //    $category_id = $product->virtuemart_category_id;
-        //}
-        /* if(!empty($this->app_key) && !$this->isAdmin)
-         {
-             if ($this->debug) {
-                 JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCodeDebug);
-             } else JFactory::getDocument()->addScriptDeclaration($this->getjsCode().$this->jsCode2);
-
-         }*/
         $this->productView();
     }
 
@@ -356,14 +352,14 @@ EOD;
     public function regbyApi()
     {
         $domain = $this->regDomain;
-        $email = $this->email; //'wixapp@ya.ru';
-        $key = $this->app_key;//'TW11RrYsczhpluVFFBABruIEmPDq2Z8Z';
-        $url = 'http://' . $this->url; //'aliexpress-skidka.ru';
+        $email = $this->email;
+        $key = $this->app_key;
+        $url = $this->url;
 
         if (($domain == '') OR ($email == '') OR ($key == '') OR ($url == '')) {
             return;
         }
-        //var_dump(array($domain,$email,$key,$url));exit();
+
         $ch = curl_init();
 
         $jsondata = json_encode(array(
@@ -399,12 +395,9 @@ EOD;
             $query->set($db->quoteName('params') . '= ' . $db->quote((string)$params));
             $query->where($db->quoteName('element') . ' = ' . $db->quote('intarget'));
             $query->where($db->quoteName('type') . ' = ' . $db->quote('plugin'));
-
             $db->setQuery($query);
-            //echo $query; exit();
             $db->execute();
-            //$db->setQuery($query);
-            //$result = $db->loadResult();
+
         } catch (RuntimeException $e) {
             echo $e->getMessage();
             exit();
