@@ -26,12 +26,6 @@ jQuery(document).ready(function () {
     var support_text = "<br><br>Служба поддержки: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a><br>Joomla inTarget v1.0.0";
     var success_text = "Поздравляем! Ваш сайт успешно привязан к аккаунту <a href='http://intarget.ru'>intarget.ru</a>. Войдите в личный кабинет для просмотра статистики."
 
-    ////проверка на успешную регистрацию.
-    //function validateEmail(email) {
-    //    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    //    return re.test(email);
-    //}
-
     if ((jQuery('#jform_params_app_key').val() !== '') && (jQuery('#jform_params_email').val() !== '')) {
         if (window.intarget_succes_reg == true) {
             jQuery('#jform_params_app_key').after('<img title="Введен правильный ключ!" class="intrg_ok" src="../plugins/system/intarget/ok.png">');

@@ -226,7 +226,6 @@ EOD;
         //check and try to reg
         if (($this->params->get('email') !== '') && ($this->params->get('app_key') !== '')) {
             $id = $this->regbyApi();
-            var_dump($id);
             if (isset($id->payload->projectId)) {
                 $this->projectId = $id->payload->projectId;
             }
