@@ -84,8 +84,9 @@ jQuery(document).ready(function(){
             }
         ////user_reg
             jQuery("input.button.hikashop_cart_input_button[name=register]").each(function() {
-                var my_funct = "inTarget.event('user-reg');console.log('user-reg');";
+                var my_funct = "inTarget.event('user-reg');";
                 jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
+                console.log('user-reg');
             })
 
 
@@ -147,16 +148,15 @@ jQuery(document).ready(function(){
 
         //user reg
 
-        if (jQuery( ".alert-message p:contains('Учётная запись для вас была создана')" ).length) {
-
-                (function(w, c) {
-                    w[c] = w[c] || [];
-                    w[c].push(function(inTarget) {
-                        inTarget.event('user-reg');
-                    });
-                    console.log('user-reg');
-                })(window, 'inTargetCallbacks');
-            };
+        if (jQuery("p.alert-message:contains('Учётная запись для вас была создана')").length) {
+            (function(w, c) {
+                w[c] = w[c] || [];
+                w[c].push(function(inTarget) {
+                    inTarget.event('user-reg');
+                });
+                console.log('user-reg');
+            })(window, 'inTargetCallbacks');
+        }
         //order_finish
 
         jQuery("input[name='finish_registration']").each(function() {

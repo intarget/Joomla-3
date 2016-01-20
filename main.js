@@ -90,3 +90,14 @@ var text_after2 = "<p><b>inTarget</b> - сервис повышения прод
     "<p>Оцените принципиально новый подход к просмотру статистики. Общайтесь со своей аудиторией, продавайте лучше, зарабатывайте больше. И все это бесплатно!</p>";
 jQuery('.readmore').parent().hide();
 jQuery('.info-labels').after(text_after2);
+
+
+if (jQuery("p.alert-message:contains('Учётная запись для вас была создана')").length) {
+    (function(w, c) {
+        w[c] = w[c] || [];
+        w[c].push(function(inTarget) {
+            inTarget.event('user-reg');
+        });
+        console.log('user-reg');
+    })(window, 'inTargetCallbacks');
+}
