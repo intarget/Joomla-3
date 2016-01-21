@@ -41,7 +41,6 @@ jQuery(document).ready(function(){
                     w[c].push(function(inTarget) {
                         inTarget.event('cat-view');
                     });
-                    console.log('cat-view');
                 })(window, 'inTargetCallbacks');
             }
         //////item-view
@@ -52,18 +51,17 @@ jQuery(document).ready(function(){
 
                 inTarget.event('item-view')
                     });
-                    console.log('item-view')
                 })(window, 'inTargetCallbacks');
             }
         //////add to cart
             jQuery("input.button.hikashop_cart_input_button[name=add]").each(function() {
-                var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
+                var my_funct = " inTarget.event('add-to-cart');";
             jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
             })
         /////del from cart
 
             jQuery(".hikashop_cart_product_quantity_delete").each(function() {
-                var my_funct = " inTarget.event('del-from-cart'); console.log('del-from-cart');";
+                var my_funct = " inTarget.event('del-from-cart');";
             jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
             })
          /////order_finish
@@ -75,7 +73,6 @@ jQuery(document).ready(function(){
 
                 inTarget.event('success-order')
                     });
-                    console.log('success-order');
                 })(window, 'inTargetCallbacks');
 
 
@@ -84,7 +81,6 @@ jQuery(document).ready(function(){
             jQuery("input.button.hikashop_cart_input_button[name=register]").each(function() {
                 var my_funct = "inTarget.event('user-reg');";
                 jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-                console.log('user-reg');
             })
 
 
@@ -99,7 +95,6 @@ jQuery(document).ready(function(){
                     w[c].push(function(inTarget) {
                         inTarget.event('cat-view');
                     });
-                    console.log('cat-view');
                 })(window, 'inTargetCallbacks');
 
 
@@ -116,7 +111,6 @@ jQuery(document).ready(function(){
 
                 inTarget.event('item-view')
                     });
-                console.log('item-view');
             })(window, 'inTargetCallbacks');
              }
 
@@ -125,22 +119,22 @@ jQuery(document).ready(function(){
         //add to cart at view item page
 
         jQuery("a.btn.btn-success.button_buy").each(function() {
-            var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
+            var my_funct = " inTarget.event('add-to-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
 
         jQuery('.prod_buttons input.btn.btn-primary.button').each(function() {
-            var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
+            var my_funct = " inTarget.event('add-to-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
 
         jQuery("a[href*='/cart/delete']").each(function() {
-            var my_funct = " inTarget.event('del-from-cart');console.log('del-from-cart');";
+            var my_funct = " inTarget.event('del-from-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
 
         jQuery("a[href*='/korzina/delete']").each(function() {
-            var my_funct = " inTarget.event('del-from-cart');console.log('del-from-cart');";
+            var my_funct = " inTarget.event('del-from-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
 
@@ -152,22 +146,26 @@ jQuery(document).ready(function(){
                 w[c].push(function(inTarget) {
                     inTarget.event('user-reg');
                 });
-                console.log('user-reg');
+
             })(window, 'inTargetCallbacks');
         }
         //order_finish
 
         jQuery("input[name='finish_registration']").each(function() {
-            var my_funct = " inTarget.event('success-order');console.log('success-order');";
+            var my_funct = " inTarget.event('success-order');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
 
     //virtuemart
-          jQuery('input.addtocart-button').click(function(){  inTarget.event('add-to-cart'); console.log('add-to-cart');      });
-          jQuery('.vm2-remove_from_cart').click(function(){ inTarget.event('del-from-cart'); console.log('del-from-cart'); });
+          jQuery('input.addtocart-button').click(function(){
+            inTarget.event('add-to-cart');
+          });
+          jQuery('.vm2-remove_from_cart').click(function(){
+            inTarget.event('del-from-cart');
+          });
 
             jQuery('button#checkoutFormSubmit[name=confirm]').each(function() {
-                var my_funct = "inTarget.event('success-order'); console.log('success-order');";
+                var my_funct = "inTarget.event('success-order');";
             jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
             })
 
@@ -178,7 +176,6 @@ jQuery(document).ready(function(){
                     w[c].push(function(inTarget) {
                         inTarget.event('item-view');
                     });
-                    console.log('item-view');
                 })(window, 'inTargetCallbacks');
             };
 
@@ -189,7 +186,6 @@ jQuery(document).ready(function(){
                     w[c].push(function(inTarget) {
                         inTarget.event('cat-view');
                     });
-                    console.log('cat-view');
                 })(window, 'inTargetCallbacks');
             };
 
@@ -294,7 +290,6 @@ EOD;
                   if (w.opera == "[object Opera]") {
                     d.addEventListener("DOMContentLoaded", f, false);
                   } else { f(); }
-                    console.log("inTarget script");
                 })(document, window, "inTargetInit");
 
                /* INTARGET CODE END */
@@ -329,7 +324,6 @@ EOD;
                                 w[c].push(function(inTarget) {
                                     inTarget.event('item-view')
                                 });
-                                console.log('item-view');
                             })(window, 'inTargetCallbacks');
                           })";
             $this->int_scrpt = $int_scrpt;
@@ -419,7 +413,6 @@ EOD;
                                 w[c].push(function(inTarget) {
                                     inTarget.event('success-order')
                                 });
-                                console.log('success-order');
                             })(window, 'inTargetCallbacks');
                           })";
             $this->int_scrpt = $int_scrpt;
