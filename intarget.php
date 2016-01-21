@@ -21,10 +21,10 @@ class plgSystemIntarget extends JPlugin
     public $url = '';
     public $projectId = '';
     public $error = '';
-    public $regDomain = 'http://intarget-dev.lembrd.com';
-    //public $regDomain = 'http://intarget.ru';
-    public $rtDomain = "//rt.intarget-dev.lembrd.com/loader.js";
-    //public  $rtDomain = ""//rt.intarget.ru/loader.js";
+    //public $regDomain = 'http://intarget-dev.lembrd.com';
+    public $regDomain = 'http://intarget.ru';
+    //public $rtDomain = "rt.intarget-dev.lembrd.com/loader.js";
+    public  $rtDomain = "rt.intarget.ru/loader.js";
     public $int_scrpt = '';
     public $VMAddToCartSelector = 'input.addtocart-button';
     public $VMSuccessOrderSelector = 'button#checkoutFormSubmit';
