@@ -1,9 +1,5 @@
-//2. Убрать вкладку Описание
-
 function formCheck() {
-
     var errMsg = {'both': 'Заполните обязательные поля'};
-
     var formError = '';
     if ((jQuery('#jform_params_app_key').val() == '') || (jQuery('#jform_params_email').val() == '')) {
         formError = 'both';
@@ -14,13 +10,11 @@ function formCheck() {
         alert(errMsg[formError]);
         return false;
     }
-
 }
 
 jQuery(document).ready(function () {
     jQuery('a[href="#description"]').hide();
 
-    //кнопка проверить ключ
     var text_after = "Введите email и ключ API из личного кабинета inTarget. <br>" +
         "Если вы еще не регистрировались в сервисе inTarget это можно сделать по ссылке <a href='http://intarget.ru'>inTarget.ru</a>";
     var support_text = "<br><br>Служба поддержки: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a><br>Joomla inTarget v1.0.0";
@@ -31,29 +25,24 @@ jQuery(document).ready(function () {
             jQuery('#jform_params_app_key').after('<img title="Введен правильный ключ!" class="intrg_ok" src="../plugins/system/intarget/ok.png">');
             jQuery('#jform_params_email').after('<img title="Введен правильный email!" class="intrg_ok" src="../plugins/system/intarget/ok.png">');
             jQuery('#jform_params_intarget_id').val(window.intarget_id);
-            //выключаем поля
-            // jQuery('#jform_params_app_key').attr('disabled', 'disabled');
-            // jQuery('#jform_params_email').attr('disabled', 'disabled');
             jQuery('[id=jform_params_app_key-lbl]').parent().parent().after(success_text + support_text);
-            //jQuery('button#intrgt_auth_btn').hide();
         } else if (window.intarget_succes_reg == false) {
             jQuery('[id=jform_params_app_key-lbl]').parent().parent().after(text_after + support_text);
-            console.log("2");
             if (window.intarget_reg_error == 403) {
                 jQuery('.alert.alert-success').hide();
                 var error_text = 'Неверно введен email или ключ API.';
-                //jQuery('#intrgt_auth_btn').after('<div><span class="intrg_err"> <b>Ошибка!</b> Неверно введен email или ключ API.</span></div>')
-                //jQuery('#jform_params_app_key').after('<img title="Ошибка! Введен неверный ключ." class="intrg_err" src="../plugins/content/intarget/error.png"><span class="intrg_err"> Ошибка! Введен неверный ключ.</span>')
             }
             if (window.intarget_reg_error == 500) {
                 jQuery('.alert.alert-success').hide();
                 var error_text = 'Данный сайт уже используется в другом аккаунте на сайте <a href="http://intarget.ru">http://intarget.ru</a>';
-                //jQuery('#intrgt_auth_btn').after('<span class="intrg_err"> <b>Ошибка!</b> Данный сайт уже используется в другом аккаунте на сайте <a href="http://intarget.ru">http://intarget.ru</a></span>')
             }
             if (window.intarget_reg_error == 404) {
                 jQuery('.alert.alert-success').hide();
                 var error_text = 'Данный email не зарегистрирован на сайте <a href="http://intarget.ru">http://intarget.ru</a>';
-                //jQuery('#intrgt_auth_btn').after('<span class="intrg_err"> <b>Ошибка!</b> Данный email не зарегистрирован на сайте <a href="http://intarget.ru">http://intarget.ru</a></span>')
+            }
+            if (window.intarget_reg_error == 0) {
+                jQuery('.alert.alert-success').hide();
+                var error_text = 'Ответ от <a href="http://intarget.ru">inTarget</a> не был получен. Возможно, вы исползуете модуль локально!';
             }
             var intrg_btn_html = '<div style="width:100%;margin-top: 20px;">' +
                 '<button style="float:left;" id="intrgt_auth_btn" onclick="formCheck(); return false;"> Авторизация </button>' +
@@ -78,12 +67,10 @@ jQuery(document).ready(function () {
         jQuery('input#jform_params_app_key').parent().after('<button style="float:left;margin-top: 15px;" id="intrgt_auth_btn" onclick="formCheck(); return false;"> Авторизация </button>');
         jQuery('[id=jform_params_app_key-lbl]').parent().parent().after(text_after + support_text);
     }
-
     //правим отступ
     jQuery('#jform_params_app_key').parent().css('margin-left', '70px');
     jQuery('#jform_params_email').parent().css('margin-left', '70px')
 });
-
 
 //добавляем вместо краткого описания нужный текст.
 var text_after2 = "<p><b>inTarget</b> - сервис повышения продаж и аналитика посетителей сайта.</p>" +
@@ -91,13 +78,11 @@ var text_after2 = "<p><b>inTarget</b> - сервис повышения прод
 jQuery('.readmore').parent().hide();
 jQuery('.info-labels').after(text_after2);
 
-
 if (jQuery("p.alert-message:contains('Учётная запись для вас была создана')").length) {
     (function(w, c) {
         w[c] = w[c] || [];
         w[c].push(function(inTarget) {
             inTarget.event('user-reg');
         });
-        console.log('user-reg');
     })(window, 'inTargetCallbacks');
 }

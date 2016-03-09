@@ -1,21 +1,19 @@
 <?php
 /**
- * @version     1.0.0
+ * @version     1.0.1
  * @Project     inTarget
  * @author      intarget.ru
  * @package
- * @copyright   Copyright (C) 2015 intarget.ru. All rights reserved.
+ * @copyright   Copyright (C) 2016 intarget.ru. All rights reserved.
  * @license     GNU/GPL: http://www.gnu.org/copyleft/gpl.html
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
-
 jimport('joomla.plugin.plugin');
 
 class plgSystemIntarget extends JPlugin
 {
-
     public $app_key = '';
     public $email = '';
     public $url = '';
@@ -30,10 +28,8 @@ class plgSystemIntarget extends JPlugin
     public $VMDelFromCartSelector = '.vm2-remove_from_cart';
     public $VMCatViewSelector = 'div.category-view';
     public $jsCode2 = <<<EOD
-
 jQuery(document).ready(function(){
     //hikashop
-
         //////cat-view
               if (jQuery('body.com_hikashop.view-category').length) {
                            (function(w, c) {
@@ -74,8 +70,6 @@ jQuery(document).ready(function(){
                 inTarget.event('success-order')
                     });
                 })(window, 'inTargetCallbacks');
-
-
             }
         ////user_reg
             jQuery("input.button.hikashop_cart_input_button[name=register]").each(function() {
@@ -83,11 +77,8 @@ jQuery(document).ready(function(){
                 jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
             })
 
-
-
     //joomshopping
         //////view-cat
-
         if (jQuery('div.jshop_list_category').length) {
 
                         (function(w, c) {
@@ -96,14 +87,9 @@ jQuery(document).ready(function(){
                         inTarget.event('cat-view');
                     });
                 })(window, 'inTargetCallbacks');
-
-
-
-
         }
 
         //item-view
-
         if (jQuery('div.jshop.productfull').length) {
             (function(w, c) {
                 w[c] = w[c] || [];
@@ -112,12 +98,9 @@ jQuery(document).ready(function(){
                 inTarget.event('item-view')
                     });
             })(window, 'inTargetCallbacks');
-             }
-
-
+        }
         //add to cart
         //add to cart at view item page
-
         jQuery("a.btn.btn-success.button_buy").each(function() {
             var my_funct = " inTarget.event('add-to-cart');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
@@ -139,7 +122,6 @@ jQuery(document).ready(function(){
         })
 
         //user reg
-
         if (jQuery("p.alert-message:contains('Учётная запись для вас была создана')").length) {
             (function(w, c) {
                 w[c] = w[c] || [];
@@ -198,7 +180,6 @@ jQuery(document).ready(function(){
             var my_funct = "inTarget.event('user-reg');";
         jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
         })
-
 })
 EOD;
 
@@ -218,13 +199,12 @@ EOD;
         $this->url = $this->currentUrl();
 
         //check and try to reg
-        if (($this->params->get('email') !== '') && ($this->params->get('app_key') !== '')) {
+        if (($this->email !== '') && ($this->app_key !== '')) {
             $id = $this->regbyApi();
             if (isset($id->payload->projectId)) {
                 $this->projectId = $id->payload->projectId;
             }
         }
-//        $this->projectId = $this->getProjectIdFromFile();
         $this->params->set('intarget_id', $this->projectId);
 
         if (strlen($this->projectId) > 0) {
@@ -238,12 +218,13 @@ EOD;
                 JFactory::getDocument()->addScriptDeclaration('window.intarget_id = ' . $this->projectId);
 
             } else {
-                if (isset($id->code))
+                if (isset($id->code)) {
                     JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = false;window.intarget_reg_error = "' . $id->code . '"');
+                } elseif (empty($id)) {
+                    JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = false;window.intarget_reg_error = "0"');
+                }
             }
         }
-
-
     }
 
     /**
@@ -293,7 +274,6 @@ EOD;
                 })(document, window, "inTargetInit");
 
                /* INTARGET CODE END */
-
         ' . $this->int_scrpt;
         } else return;
     }
@@ -305,7 +285,6 @@ EOD;
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
     }
-
 
     public function onContentBeforeDisplay($context, &$product, &$params, $page = 0)
     {
@@ -352,13 +331,11 @@ EOD;
         }
 
         $ch = curl_init();
-
         $jsondata = json_encode(array(
             'email' => $email,
             'key' => $key,
             'url' => $url,
             'cms' => 'joomla'));
-
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept: application/json'));
         curl_setopt($ch, CURLOPT_URL, $domain . "/api/registration.json");
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -366,33 +343,9 @@ EOD;
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $server_output = curl_exec($ch);
         curl_close($ch);
-
         file_put_contents(JPATH_PLUGINS . '/system/intarget/log.txt', $server_output, FILE_APPEND);
-
         $json_result = json_decode($server_output);
         return $json_result;
-    }
-
-    public function saveProjectId($projectId)
-    {
-
-        $params = $this->params;
-        $params->set('intarget_id', $projectId);
-
-        try {
-            $db = JFactory::getDbo();
-            $query = $db->getQuery(true);
-            $query->update($db->quoteName('#__extensions'));
-            $query->set($db->quoteName('params') . '= ' . $db->quote((string)$params));
-            $query->where($db->quoteName('element') . ' = ' . $db->quote('intarget'));
-            $query->where($db->quoteName('type') . ' = ' . $db->quote('plugin'));
-            $db->setQuery($query);
-            $db->execute();
-
-        } catch (RuntimeException $e) {
-            echo $e->getMessage();
-            exit();
-        }
     }
 
     public function onAfterOrderCreate(&$order, &$send_email)
