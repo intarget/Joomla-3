@@ -36,6 +36,10 @@
         <fields name="params">
             <fieldset name="basic">
                 <field
+                        name="intarget_id"
+                        type="hidden"
+                        default=""/>
+                <field
                         name="email"
                         type="text"
                         default=""
@@ -47,10 +51,6 @@
                         default=""
                         label="PLG_INTARGET_APP_KEY"
                         description="PLG_INTARGET_APP_KEY_DESC"/>
-                <field
-                        name="intarget_id"
-                        type="hidden"
-                        default=""/>
             </fieldset>
         </fields>
     </config>

@@ -19,7 +19,7 @@ class plgSystemIntarget extends JPlugin
     public $url = '';
     public $projectId = '';
     public $error = '';
-    public $regDomain = 'https://intarget.ru';
+    public $regDomain = 'https://intarget.ru/';
     public  $rtDomain = "//rt.intarget.ru/loader.js";
     public $int_scrpt = '';
     public $VMAddToCartSelector = 'input.addtocart-button';
@@ -193,21 +193,21 @@ EOD;
             exit();
         }
 
+        // загрузка параметров плагина
         $this->isAdmin = JFactory::getApplication()->isAdmin();
         $this->app_key = $this->params->get('app_key', '');
         $this->email = $this->params->get('email', '');
-        $this->projectId = $this->params->get('intarget_id', '');
+        $this->projectId = $this->params->get('intarget_id','');
         $this->url = $this->currentUrl();
 
         //check and try to reg
-        if (($this->email !== '') && ($this->app_key !== '') && ($this->projectId == '')) {
+        if (($this->email !== '') && ($this->app_key !== '') && empty($this->projectId)) {
             $id = $this->regbyApi();
             if (isset($id->payload->projectId)) {
                 $this->projectId = $id->payload->projectId;
-                $this->params->set('intarget_id', $this->projectId);
+                $this->params->set('intarget_id', $id->payload->projectId);
             }
         }
-
         if (strlen($this->projectId) > 0) {
             JFactory::getDocument()->addScriptDeclaration($this->getjsCode() . $this->jsCode2);
         }
@@ -326,8 +326,9 @@ EOD;
         $email = $this->email;
         $key = $this->app_key;
         $url = $this->url;
+        $projectId = $this->projectId;
 
-        if (($domain == '') OR ($email == '') OR ($key == '') OR ($url == '')) {
+        if (($domain == '') OR ($email == '') OR ($key == '') OR ($url == '') OR (!empty($projectId))) {
             return;
         }
 

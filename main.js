@@ -6,6 +6,7 @@ function formCheck() {
     }
     if (formError == '') {
         Joomla.submitbutton('plugin.apply');
+        return true;
     } else {
         alert(errMsg[formError]);
         return false;
@@ -18,14 +19,16 @@ jQuery(document).ready(function () {
     var text_after = "Введите email и ключ API из личного кабинета inTarget. <br>" +
         "Если вы еще не регистрировались в сервисе inTarget это можно сделать по ссылке <a href='http://intarget.ru'>inTarget.ru</a>";
     var support_text = "<br><br>Служба поддержки: <a href='mailto:plugins@intarget.ru'>plugins@intarget.ru</a><br>Joomla inTarget v1.0.2";
-    var success_text = "Поздравляем! Ваш сайт успешно привязан к аккаунту <a href='http://intarget.ru'>intarget.ru</a>. Войдите в личный кабинет для просмотра статистики."
+    var success_text = "Поздравляем! Ваш сайт успешно привязан к аккаунту <a href='http://intarget.ru'>intarget.ru</a>. Войдите в личный кабинет для просмотра статистики.";
 
     if ((jQuery('#jform_params_app_key').val() !== '') && (jQuery('#jform_params_email').val() !== '')) {
-        if (window.intarget_succes_reg == true) {
+        if (window.intarget_succes_reg == true && jQuery('#jform_params_intarget_id').val() !== '') {
             jQuery('#jform_params_app_key').after('<img title="Введен правильный ключ!" class="intrg_ok" src="../plugins/system/intarget/ok.png">');
             jQuery('#jform_params_email').after('<img title="Введен правильный email!" class="intrg_ok" src="../plugins/system/intarget/ok.png">');
-            jQuery('#jform_params_intarget_id').val(window.intarget_id);
             jQuery('[id=jform_params_app_key-lbl]').parent().parent().after(success_text + support_text);
+        } else if (window.intarget_succes_reg == true && jQuery('#jform_params_intarget_id').val() == ''){
+            jQuery('#jform_params_intarget_id').val(window.intarget_id);
+            Joomla.submitbutton('plugin.apply');
         } else if (window.intarget_succes_reg == false) {
             jQuery('[id=jform_params_app_key-lbl]').parent().parent().after(text_after + support_text);
             if (window.intarget_reg_error == 403) {
