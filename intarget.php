@@ -200,7 +200,7 @@ EOD;
         $this->url = $this->currentUrl();
 
         //check and try to reg
-        if (($this->email !== '') && ($this->app_key !== '') && ($this->projectId !== '')) {
+        if (($this->email !== '') && ($this->app_key !== '') && ($this->projectId == '')) {
             $id = $this->regbyApi();
             if (isset($id->payload->projectId)) {
                 $this->projectId = $id->payload->projectId;
