@@ -196,16 +196,17 @@ EOD;
         $this->isAdmin = JFactory::getApplication()->isAdmin();
         $this->app_key = $this->params->get('app_key', '');
         $this->email = $this->params->get('email', '');
+        $this->projectId = $this->params->get('intarget_id', '');
         $this->url = $this->currentUrl();
 
         //check and try to reg
-        if (($this->email !== '') && ($this->app_key !== '')) {
+        if (($this->email !== '') && ($this->app_key !== '') && ($this->projectId !== '')) {
             $id = $this->regbyApi();
             if (isset($id->payload->projectId)) {
                 $this->projectId = $id->payload->projectId;
+                $this->params->set('intarget_id', $this->projectId);
             }
         }
-        $this->params->set('intarget_id', $this->projectId);
 
         if (strlen($this->projectId) > 0) {
             JFactory::getDocument()->addScriptDeclaration($this->getjsCode() . $this->jsCode2);

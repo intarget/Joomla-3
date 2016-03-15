@@ -53,6 +53,9 @@ License: GNU General Public License, version 2
 **email:** необходимо указать email зарегистрированный в системе [inTarget](https://intarget.ru).  
 
 ## Изменения
+#### 1.0.2
+ * Bugfix
+
 #### 1.0.1
  * Расширения списка ошибок при регистрации проекта
 
