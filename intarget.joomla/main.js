@@ -16,7 +16,7 @@ function formCheck() {
 jQuery(document).ready(function () {
     jQuery('a[href="#description"]').hide();
 
-    var text_after = 'Введите Email и ключ API из личного кабинета <a href="http://intarget.ru" target="_blank">inTarget.<br>' +
+    var text_after = 'Введите Email и ключ API из личного кабинета <a href="http://intarget.ru" target="_blank">inTarget</a>.<br>' +
         'Если вы еще не регистрировались в сервисе inTarget это можно сделать по ссылке <a href="http://intarget.ru">inTarget.ru</a>';
     var support_text = '<br><br>Служба поддержки: <a href="mailto:plugins@intarget.ru">plugins@intarget.ru</a><br>Joomla inTarget v1.0.3';
     var success_text = 'Поздравляем! Ваш сайт успешно привязан к аккаунту <a href="http://intarget.ru">inTarget</a>. Войдите в личный кабинет для просмотра статистики.';
