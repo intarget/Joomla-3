@@ -45,7 +45,7 @@ jQuery(document).ready(function () {
             }
             if (window.intarget_reg_error == 0) {
                 jQuery('.alert.alert-success').hide();
-                var error_text = 'Ответ от <a href="http://intarget.ru" target="_blank">inTarget</a> не был получен! Обратитесь в службу <a href="mailto:plugins@intarget.ru" target="_blank">технической поддержки</a>';
+                var error_text = 'Ответ от <a href="http://intarget.ru" target="_blank">inTarget</a> не был получен! Обратитесь в Cлужбу технической поддержки: <a href="mailto:plugins@intarget.ru">plugins@intarget.ru</a>';
             }
             var intrg_btn_html = '<div style="width:100%;margin-top: 20px;">' +
                 '<button style="float:left;" id="intrgt_auth_btn" onclick="formCheck(); return false;">Авторизация</button>' +
