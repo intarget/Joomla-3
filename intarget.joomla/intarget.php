@@ -61,7 +61,7 @@ jQuery(document).ready(function () {
     });
     /////del from cart
     jQuery(".hikashop_cart_product_quantity_delete").each(function () {
-        var my_funct = " inTarget.event('del-from-cart');console.log('del-from-cart');";
+        var my_funct = " inTarget.event('del-from-cart'); console.log('del-from-cart');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
@@ -78,7 +78,7 @@ jQuery(document).ready(function () {
     }
     ////user_reg
     jQuery("input.button.hikashop_cart_input_button[name=register]").each(function () {
-        var my_funct = "inTarget.event('user-reg');";
+        var my_funct = "inTarget.event('user-reg'); console.log('user-reg');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
@@ -91,6 +91,7 @@ jQuery(document).ready(function () {
             w[c] = w[c] || [];
             w[c].push(function (inTarget) {
                 inTarget.event('cat-view');
+                console.log('cat-view');
             });
         })(window, 'inTargetCallbacks');
     }
@@ -99,33 +100,34 @@ jQuery(document).ready(function () {
         (function (w, c) {
             w[c] = w[c] || [];
             w[c].push(function (inTarget) {
-
-                inTarget.event('item-view')
+                inTarget.event('item-view');
+                console.log('item-view');
             });
         })(window, 'inTargetCallbacks');
     }
     //add to cart
     //add to cart at view item page
     jQuery("a.btn.btn-success.button_buy").each(function () {
-        var my_funct = " inTarget.event('add-to-cart');";
+        var my_funct = "document.cookie = \"INTARGET_ADD=Y; path=/;\";";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
     });
     jQuery('.prod_buttons input.btn.btn-primary.button').each(function () {
-        var my_funct = " inTarget.event('add-to-cart');";
+        var my_funct = "document.cookie = \"INTARGET_ADD=Y; path=/;\";";
+//        var my_funct = " inTarget.event('add-to-cart');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
     });
     jQuery("a[href*='/cart/delete']").each(function () {
-        var my_funct = " inTarget.event('del-from-cart');";
+        var my_funct = " inTarget.event('del-from-cart'); console.log('del-from-cart');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
     });
     jQuery("a[href*='/korzina/delete']").each(function () {
-        var my_funct = " inTarget.event('del-from-cart');";
+        var my_funct = " inTarget.event('del-from-cart'); console.log('del-from-cart');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
@@ -136,12 +138,13 @@ jQuery(document).ready(function () {
             w[c] = w[c] || [];
             w[c].push(function (inTarget) {
                 inTarget.event('user-reg');
+                console.log('user-reg');
             });
         })(window, 'inTargetCallbacks');
     }
     //order_finish
     jQuery("input[name='finish_registration']").each(function () {
-        var my_funct = " inTarget.event('success-order');";
+        var my_funct = " inTarget.event('success-order'); console.log('success-order')";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
@@ -149,12 +152,14 @@ jQuery(document).ready(function () {
     //virtuemart
     jQuery('input.addtocart-button').click(function () {
         inTarget.event('add-to-cart');
+        console.log('add-to-cart');
     });
     jQuery('.vm2-remove_from_cart').click(function () {
         inTarget.event('del-from-cart');
+        console.log('del-from-cart');
     });
     jQuery('button#checkoutFormSubmit[name=confirm]').each(function () {
-        var my_funct = "inTarget.event('success-order');";
+        var my_funct = "inTarget.event('success-order'); console.log('success-order');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
@@ -164,6 +169,7 @@ jQuery(document).ready(function () {
             w[c] = w[c] || [];
             w[c].push(function (inTarget) {
                 inTarget.event('item-view');
+                console.log('item-view');
             });
         })(window, 'inTargetCallbacks');
     }
@@ -172,18 +178,19 @@ jQuery(document).ready(function () {
             w[c] = w[c] || [];
             w[c].push(function (inTarget) {
                 inTarget.event('cat-view');
+                console.log('cat-view');
             });
         })(window, 'inTargetCallbacks');
     }
     //user reg
     jQuery("button[name=save]").each(function () {
-        var my_funct = "inTarget.event('user-reg');";
+        var my_funct = "inTarget.event('user-reg'); console.log('user-reg');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
     });
     jQuery("button[name=register]").each(function () {
-        var my_funct = "inTarget.event('user-reg');";
+        var my_funct = "inTarget.event('user-reg'); console.log('user-reg');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
@@ -307,7 +314,8 @@ EOD;
                             (function(w, c) {
                                 w[c] = w[c] || [];
                                 w[c].push(function(inTarget) {
-                                    inTarget.event('item-view')
+                                    inTarget.event('item-view');
+                                    console.log('item-view');
                                 });
                             })(window, 'inTargetCallbacks');
                           })";
@@ -371,7 +379,8 @@ EOD;
                             (function(w, c) {
                                 w[c] = w[c] || [];
                                 w[c].push(function(inTarget) {
-                                    inTarget.event('success-order')
+                                    inTarget.event('success-order');
+                                    console.log('success-order');
                                 });
                             })(window, 'inTargetCallbacks');
                           })";
