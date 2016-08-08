@@ -28,7 +28,7 @@ class plgSystemIntarget extends JPlugin
     public $VMDelFromCartSelector = '.vm2-remove_from_cart';
     public $VMCatViewSelector = 'div.category-view';
     public $jsCode2 = <<<EOD
-(function () {
+    (function () {
 jQuery(document).ready(function () {
     //hikashop
     //////cat-view
@@ -197,7 +197,6 @@ jQuery(document).ready(function () {
         } else jQuery(this).attr('onclick', my_funct);
     })
 });
-})();
 
 function intargetgetCookie(name) {
     var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([.$?*|{}()[]\/+^])/g, '\$1') + "=([^;]*)"));
@@ -215,6 +214,7 @@ if (intarget_add && intarget_add == 'Y') {
     })(window, 'inTargetCallbacks');
     document.cookie = 'INTARGET_ADD=N; path=/;';
 }
+})();
 /* INTARGET CODE END */
 EOD;
 
@@ -244,20 +244,21 @@ EOD;
             }
         }
         if (strlen($this->projectId) > 0) {
-            JFactory::getDocument()->addScriptDeclaration($this->getjsCode() . $this->jsCode2);
+            JFactory::getDocument()->addScriptDeclaration($this->getjsCode());
+            JFactory::getDocument()->addScriptDeclaration($this->jsCode2);
         }
 
         //проверка на успешно авторизированный проект
         if ($this->isAdmin) {
             if (strlen($this->projectId) > 0) {
-                JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = true');
-                JFactory::getDocument()->addScriptDeclaration('window.intarget_id = ' . $this->projectId);
+                JFactory::getDocument()->addScriptDeclaration('(function () {   window.intarget_succes_reg = true;})();');
+                JFactory::getDocument()->addScriptDeclaration('(function () {   window.intarget_id = ' . $this->projectId .';})();');
 
             } else {
                 if (isset($id->code)) {
-                    JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = false;window.intarget_reg_error = "' . $id->code . '"');
+                    JFactory::getDocument()->addScriptDeclaration('(function () {window.intarget_succes_reg = false;window.intarget_reg_error = "' . $id->code . '";})();');
                 } elseif (empty($id)) {
-                    JFactory::getDocument()->addScriptDeclaration('window.intarget_succes_reg = false;window.intarget_reg_error = "0"');
+                    JFactory::getDocument()->addScriptDeclaration('(function () {window.intarget_succes_reg = false;window.intarget_reg_error = "0";})();');
                 }
             }
         }
