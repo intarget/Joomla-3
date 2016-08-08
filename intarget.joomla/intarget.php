@@ -115,19 +115,19 @@ jQuery(document).ready(function () {
     });
     jQuery('.prod_buttons input.btn.btn-primary.button').each(function () {
         var my_funct = "document.cookie = \"INTARGET_ADD=Y; path=/;\";";
-//        var my_funct = " inTarget.event('add-to-cart');";
+//        var my_funct = "inTarget.event('add-to-cart');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
     });
     jQuery("a[href*='/cart/delete']").each(function () {
-        var my_funct = " inTarget.event('del-from-cart'); console.log('del-from-cart');";
+        var my_funct = "inTarget.event('del-from-cart'); console.log('del-from-cart');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
     });
     jQuery("a[href*='/korzina/delete']").each(function () {
-        var my_funct = " inTarget.event('del-from-cart'); console.log('del-from-cart');";
+        var my_funct = "inTarget.event('del-from-cart'); console.log('del-from-cart');";
         if (jQuery(this).attr('onclick')) {
             jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
         } else jQuery(this).attr('onclick', my_funct);
@@ -196,6 +196,23 @@ jQuery(document).ready(function () {
         } else jQuery(this).attr('onclick', my_funct);
     })
 });
+
+function intargetgetCookie(name) {
+    var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([.$?*|{}()[]\/+^])/g, '\$1') + "=([^;]*)"));
+    return matches ? decodeURIComponent(matches[1]) : 'N';
+}
+
+var intarget_add = intargetgetCookie('INTARGET_ADD');
+if (intarget_add && intarget_add == 'Y') {
+    (function (w, c) {
+        w[c] = w[c] || [];
+        w[c].push(function (inTarget) {
+            inTarget.event('add-to-cart');
+            console.log('add-to-cart');
+        });
+    })(window, 'inTargetCallbacks');
+    document.cookie = 'INTARGET_ADD=N; path=/;';
+}
 /* INTARGET CODE END */
 EOD;
 
