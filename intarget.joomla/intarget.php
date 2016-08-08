@@ -1,10 +1,10 @@
 <?php
 /**
  * @version     1.0.3
- * @Project     inTarget
- * @author      intarget.ru
+ * @Project     inTarget https://intarget.ru
+ * @author      intarget Team
  * @package
- * @copyright   Copyright (C) 2016 intarget.ru. All rights reserved.
+ * @copyright   Copyright (C) 2016 https://intarget.ru. All rights reserved.
  * @license     GNU/GPL: http://www.gnu.org/copyleft/gpl.html
  */
 
@@ -28,159 +28,168 @@ class plgSystemIntarget extends JPlugin
     public $VMDelFromCartSelector = '.vm2-remove_from_cart';
     public $VMCatViewSelector = 'div.category-view';
     public $jsCode2 = <<<EOD
-jQuery(document).ready(function(){
+jQuery(document).ready(function () {
     //hikashop
-        //////cat-view
-              if (jQuery('body.com_hikashop.view-category').length) {
-                           (function(w, c) {
-                    w[c] = w[c] || [];
-                    w[c].push(function(inTarget) {
-                        inTarget.event('cat-view');
-                    });
-                })(window, 'inTargetCallbacks');
-            }
-        //////item-view
-              if (jQuery('body.com_hikashop.view-product').length) {
-                            (function(w, c) {
-                w[c] = w[c] || [];
-                w[c].push(function(inTarget) {
-
-                inTarget.event('item-view')
-                    });
-                })(window, 'inTargetCallbacks');
-            }
-        //////add to cart
-            jQuery("input.button.hikashop_cart_input_button[name=add]").each(function() {
-                var my_funct = " inTarget.event('add-to-cart');";
-            jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-            })
-        /////del from cart
-
-            jQuery(".hikashop_cart_product_quantity_delete").each(function() {
-                var my_funct = " inTarget.event('del-from-cart');";
-            jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-            })
-         /////order_finish
-           if (jQuery('span#hikashop_purchaseorder_end_message').length) {
-
-            (function(w, c) {
-                w[c] = w[c] || [];
-                w[c].push(function(inTarget) {
-
-                inTarget.event('success-order')
-                    });
-                })(window, 'inTargetCallbacks');
-            }
-        ////user_reg
-            jQuery("input.button.hikashop_cart_input_button[name=register]").each(function() {
-                var my_funct = "inTarget.event('user-reg');";
-                jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-            })
-
+    //////cat-view
+    if (jQuery('body.com_hikashop.view-category').length) {
+        (function (w, c) {
+            w[c] = w[c] || [];
+            w[c].push(function (inTarget) {
+                inTarget.event('cat-view');
+                console.log('cat-view');
+            });
+        })(window, 'inTargetCallbacks');
+    }
+    //////item-view
+    if (jQuery('body.com_hikashop.view-product').length) {
+        (function (w, c) {
+            w[c] = w[c] || [];
+            w[c].push(function (inTarget) {
+                inTarget.event('item-view');
+                console.log('item-view');
+            });
+        })(window, 'inTargetCallbacks');
+    }
+    //////add to cart
+    jQuery("input.button.hikashop_cart_input_button[name=add]").each(function () {
+        var my_funct = " inTarget.event('add-to-cart');console.log('add-to-cart');";
+        if (jQuery(this).attr('onclick')) {
+            if (jQuery(this).attr('onclick')) {
+                jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+            } else jQuery(this).attr('onclick', my_funct);
+        } else jQuery(this).attr('onclick', my_funct);
+    });
+    /////del from cart
+    jQuery(".hikashop_cart_product_quantity_delete").each(function () {
+        var my_funct = " inTarget.event('del-from-cart');console.log('del-from-cart');";
+        if (jQuery(this).attr('onclick')) {
+            jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+        } else jQuery(this).attr('onclick', my_funct);
+    });
+    /////order_finish
+    if (jQuery('span#hikashop_purchaseorder_end_message').length) {
+        (function (w, c) {
+            w[c] = w[c] || [];
+            w[c].push(function (inTarget) {
+                inTarget.event('success-order');
+                console.log('success-order');
+            });
+        })(window, 'inTargetCallbacks');
+    }
+    ////user_reg
+    jQuery("input.button.hikashop_cart_input_button[name=register]").each(function () {
+        var my_funct = "inTarget.event('user-reg');";
+        if (jQuery(this).attr('onclick')) {
+            jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+        } else jQuery(this).attr('onclick', my_funct);
+    });
     //joomshopping
-        //////view-cat
-        if (jQuery('div.jshop_list_category').length) {
+    //////view-cat
+    if (jQuery('div.jshop_list_category').length) {
 
-                        (function(w, c) {
-                    w[c] = w[c] || [];
-                    w[c].push(function(inTarget) {
-                        inTarget.event('cat-view');
-                    });
-                })(window, 'inTargetCallbacks');
-        }
-
-        //item-view
-        if (jQuery('div.jshop.productfull').length) {
-            (function(w, c) {
-                w[c] = w[c] || [];
-                w[c].push(function(inTarget) {
+        (function (w, c) {
+            w[c] = w[c] || [];
+            w[c].push(function (inTarget) {
+                inTarget.event('cat-view');
+            });
+        })(window, 'inTargetCallbacks');
+    }
+    //item-view
+    if (jQuery('div.jshop.productfull').length) {
+        (function (w, c) {
+            w[c] = w[c] || [];
+            w[c].push(function (inTarget) {
 
                 inTarget.event('item-view')
-                    });
-            })(window, 'inTargetCallbacks');
-        }
-        //add to cart
-        //add to cart at view item page
-        jQuery("a.btn.btn-success.button_buy").each(function() {
-            var my_funct = " inTarget.event('add-to-cart');";
-        jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-        })
-
-        jQuery('.prod_buttons input.btn.btn-primary.button').each(function() {
-            var my_funct = " inTarget.event('add-to-cart');";
-        jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-        })
-
-        jQuery("a[href*='/cart/delete']").each(function() {
-            var my_funct = " inTarget.event('del-from-cart');";
-        jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-        })
-
-        jQuery("a[href*='/korzina/delete']").each(function() {
-            var my_funct = " inTarget.event('del-from-cart');";
-        jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-        })
-
-        //user reg
-        if (jQuery("p.alert-message:contains('Учётная запись для вас была создана')").length) {
-            (function(w, c) {
-                w[c] = w[c] || [];
-                w[c].push(function(inTarget) {
-                    inTarget.event('user-reg');
-                });
-
-            })(window, 'inTargetCallbacks');
-        }
-        //order_finish
-
-        jQuery("input[name='finish_registration']").each(function() {
-            var my_funct = " inTarget.event('success-order');";
-        jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-        })
-
+            });
+        })(window, 'inTargetCallbacks');
+    }
+    //add to cart
+    //add to cart at view item page
+    jQuery("a.btn.btn-success.button_buy").each(function () {
+        var my_funct = " inTarget.event('add-to-cart');";
+        if (jQuery(this).attr('onclick')) {
+            jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+        } else jQuery(this).attr('onclick', my_funct);
+    });
+    jQuery('.prod_buttons input.btn.btn-primary.button').each(function () {
+        var my_funct = " inTarget.event('add-to-cart');";
+        if (jQuery(this).attr('onclick')) {
+            jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+        } else jQuery(this).attr('onclick', my_funct);
+    });
+    jQuery("a[href*='/cart/delete']").each(function () {
+        var my_funct = " inTarget.event('del-from-cart');";
+        if (jQuery(this).attr('onclick')) {
+            jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+        } else jQuery(this).attr('onclick', my_funct);
+    });
+    jQuery("a[href*='/korzina/delete']").each(function () {
+        var my_funct = " inTarget.event('del-from-cart');";
+        if (jQuery(this).attr('onclick')) {
+            jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+        } else jQuery(this).attr('onclick', my_funct);
+    });
+    //user reg
+    if (jQuery("p.alert-message:contains('Учётная запись для вас была создана')").length) {
+        (function (w, c) {
+            w[c] = w[c] || [];
+            w[c].push(function (inTarget) {
+                inTarget.event('user-reg');
+            });
+        })(window, 'inTargetCallbacks');
+    }
+    //order_finish
+    jQuery("input[name='finish_registration']").each(function () {
+        var my_funct = " inTarget.event('success-order');";
+        if (jQuery(this).attr('onclick')) {
+            jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+        } else jQuery(this).attr('onclick', my_funct);
+    });
     //virtuemart
-          jQuery('input.addtocart-button').click(function(){
-            inTarget.event('add-to-cart');
-          });
-          jQuery('.vm2-remove_from_cart').click(function(){
-            inTarget.event('del-from-cart');
-          });
-
-            jQuery('button#checkoutFormSubmit[name=confirm]').each(function() {
-                var my_funct = "inTarget.event('success-order');";
-            jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-            })
-
-            if (jQuery('body.com_virtuemart.view-productdetails').length) {
-
-                (function(w, c) {
-                    w[c] = w[c] || [];
-                    w[c].push(function(inTarget) {
-                        inTarget.event('item-view');
-                    });
-                })(window, 'inTargetCallbacks');
-            };
-
-            if (jQuery('div.category-view').length) {
-
-                (function(w, c) {
-                    w[c] = w[c] || [];
-                    w[c].push(function(inTarget) {
-                        inTarget.event('cat-view');
-                    });
-                })(window, 'inTargetCallbacks');
-            };
-
-        //user reg
-            jQuery("button[name=save]").each(function() {
-                var my_funct = "inTarget.event('user-reg');";
-            jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-        })
-        jQuery("button[name=register]").each(function() {
-            var my_funct = "inTarget.event('user-reg');";
-        jQuery(this).attr('onclick',my_funct+jQuery(this).attr('onclick'));
-        })
-})
+    jQuery('input.addtocart-button').click(function () {
+        inTarget.event('add-to-cart');
+    });
+    jQuery('.vm2-remove_from_cart').click(function () {
+        inTarget.event('del-from-cart');
+    });
+    jQuery('button#checkoutFormSubmit[name=confirm]').each(function () {
+        var my_funct = "inTarget.event('success-order');";
+        if (jQuery(this).attr('onclick')) {
+            jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+        } else jQuery(this).attr('onclick', my_funct);
+    });
+    if (jQuery('body.com_virtuemart.view-productdetails').length) {
+        (function (w, c) {
+            w[c] = w[c] || [];
+            w[c].push(function (inTarget) {
+                inTarget.event('item-view');
+            });
+        })(window, 'inTargetCallbacks');
+    }
+    if (jQuery('div.category-view').length) {
+        (function (w, c) {
+            w[c] = w[c] || [];
+            w[c].push(function (inTarget) {
+                inTarget.event('cat-view');
+            });
+        })(window, 'inTargetCallbacks');
+    }
+    //user reg
+    jQuery("button[name=save]").each(function () {
+        var my_funct = "inTarget.event('user-reg');";
+        if (jQuery(this).attr('onclick')) {
+            jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+        } else jQuery(this).attr('onclick', my_funct);
+    });
+    jQuery("button[name=register]").each(function () {
+        var my_funct = "inTarget.event('user-reg');";
+        if (jQuery(this).attr('onclick')) {
+            jQuery(this).attr('onclick', my_funct + jQuery(this).attr('onclick'));
+        } else jQuery(this).attr('onclick', my_funct);
+    })
+});
+/* INTARGET CODE END */
 EOD;
 
     public function __construct(& $subject, $config)
@@ -188,7 +197,7 @@ EOD;
         parent::__construct($subject, $config);
 
         if (!function_exists('curl_init')) {
-            echo "Intarget plugin problem. Php_curl not installed.
+            echo "inTarget plugin problem. Php_curl not installed.
           Please install curl or disable plugin";
             exit();
         }
@@ -257,12 +266,10 @@ EOD;
         if ((strlen($this->projectId) > 0) && (!$this->isAdmin)) {
             return '
             /* INTARGET CODE START */
-
             (function(d, w, c) {
                   w[c] = {
                     projectId:' . $this->projectId . '
                   };
-
                   var n = d.getElementsByTagName("script")[0],
                   s = d.createElement("script"),
                   f = function () { n.parentNode.insertBefore(s, n); };
@@ -273,8 +280,6 @@ EOD;
                     d.addEventListener("DOMContentLoaded", f, false);
                   } else { f(); }
                 })(document, window, "inTargetInit");
-
-               /* INTARGET CODE END */
         ' . $this->int_scrpt;
         } else return;
     }

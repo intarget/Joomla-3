@@ -55,7 +55,7 @@ License: GNU General Public License, version 3
 Здесь задаются:
 
 **Ключ API:** необходимо указать ключ API, полученный в ЛК [inTarget](https://intarget.ru);  
-**email:** необходимо указать email зарегистрированный в системе [inTarget](https://intarget.ru).  
+**Email:** необходимо указать email зарегистрированный в системе [inTarget](https://intarget.ru).  
 
 ## Изменения
 #### 1.0.3
