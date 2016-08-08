@@ -1,10 +1,10 @@
 # inTarget eCommerce
 
-Tags: intarget, analytics, statistics, sales, widgets, ecommerce, интаргет, аналитика, статистика  
+Tags: intarget, analytics, statistics, sales, widgets, ecommerce, virtuemart, hikashop, joomshopping, интаргет, аналитика, статистика  
 Requires at least: 3.x  
-Tested up to: 3.3.3  
-Stable tag: 1.0.1  
-License: GNU General Public License, version 2  
+Tested up to: 3.6.2  
+Stable tag: 1.0.3  
+License: GNU General Public License, version 3  
 
 **inTarget eCommerce** - система аналитики для интернет-магазинов, с возможностью отслеживать продажи и анализировать конверсии в реальном времени.
 
@@ -45,19 +45,27 @@ License: GNU General Public License, version 2
 
 ## Модуль "inTarget eCommerce"
 
+Поддерживаемые плагины интернет-магазинов:
+- virtuemart;
+- hikashop;
+- joomshopping;
+
 Данный модуль находится на панели администрации в разделах *Менеджер Плагинов - intarget*.
 
 Здесь задаются:
 
-**Ключ API:** необходимо указать ключ API, полученный в ЛК [inTarget](https://intarget.ru);
+**Ключ API:** необходимо указать ключ API, полученный в ЛК [inTarget](https://intarget.ru);  
 **email:** необходимо указать email зарегистрированный в системе [inTarget](https://intarget.ru).  
 
 ## Изменения
+#### 1.0.3
+* Улучшена совместимость с плагином joomshopping
+
 #### 1.0.2
  * Bugfix
 
 #### 1.0.1
  * Расширения списка ошибок при регистрации проекта
 
-#### 1.0
- * Релиз.
+#### 1.0.0
+ * Релиз
