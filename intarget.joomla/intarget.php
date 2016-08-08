@@ -28,6 +28,7 @@ class plgSystemIntarget extends JPlugin
     public $VMDelFromCartSelector = '.vm2-remove_from_cart';
     public $VMCatViewSelector = 'div.category-view';
     public $jsCode2 = <<<EOD
+(function () {
 jQuery(document).ready(function () {
     //hikashop
     //////cat-view
@@ -196,6 +197,7 @@ jQuery(document).ready(function () {
         } else jQuery(this).attr('onclick', my_funct);
     })
 });
+})();
 
 function intargetgetCookie(name) {
     var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([.$?*|{}()[]\/+^])/g, '\$1') + "=([^;]*)"));
